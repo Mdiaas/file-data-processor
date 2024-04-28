@@ -16,10 +16,17 @@ type cloudStorage struct {
 }
 
 func (c *cloudStorage) Upload(ctx context.Context, file entity.File) error {
+	l := log.WithContext(ctx).WithField("file", file).WithField("bucket", c.bucketName)
+	l.Info("receiving new upload call")
 	writer := c.client.Bucket(c.bucketName).Object(file.Name).NewWriter(ctx)
 	_, err := io.Copy(writer, file.File)
 	if err != nil {
-		log.WithContext(ctx).WithError(err).Error(err)
+		l.WithError(err).Error(err)
+		return err
+	}
+	if err := writer.Close(); err != nil {
+		l.WithError(err).Error(err)
+		return err
 	}
 	return nil
 }
