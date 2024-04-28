@@ -24,8 +24,9 @@ func (c *cloudStorage) Upload(ctx context.Context, file entity.File) error {
 	return nil
 }
 
-func NewCloudStorage(client *storage.Client) dataprovider.CloudStorage {
+func NewCloudStorage(client *storage.Client, bucketName string) dataprovider.CloudStorage {
 	return &cloudStorage{
-		client: client,
+		client:     client,
+		bucketName: bucketName,
 	}
 }

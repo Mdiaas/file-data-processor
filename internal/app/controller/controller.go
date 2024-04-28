@@ -6,6 +6,6 @@ type ServerController interface {
 	Start() error
 }
 
-func New(cfg *config.API) ServerController {
+func New(cfg *config.Config) ServerController {
 	return newServer(cfg)
 }

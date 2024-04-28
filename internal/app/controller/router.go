@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/mdiaas/processor/internal/app/config"
 	"github.com/mdiaas/processor/internal/app/controller/handlers"
 	log "github.com/sirupsen/logrus"
 )
@@ -28,8 +29,9 @@ type router struct {
 	fileDataProcessor *subRouter
 }
 
-func newRouter(e *echo.Echo) *router {
-	handler := handlers.New()
+func newRouter(e *echo.Echo, cfg *config.Config) *router {
+
+	handler := handlers.New(cfg)
 	return &router{
 		fileDataProcessor: &subRouter{
 			group: e.Group(groupPrefix),

@@ -12,7 +12,7 @@ func init() {
 	cfg = config.Load()
 }
 func main() {
-	controller := controller.New(&cfg.API)
+	controller := controller.New(&cfg)
 	if err := controller.Start(); err != nil {
 		log.WithError(err).Error("failed to start application")
 	}
