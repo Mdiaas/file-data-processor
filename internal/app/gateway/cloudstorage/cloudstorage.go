@@ -7,7 +7,7 @@ import (
 	"cloud.google.com/go/storage"
 	"github.com/mdiaas/processor/internal/core/dataprovider"
 	"github.com/mdiaas/processor/internal/core/entity"
-	"github.com/sirupsen/logrus"
+	log "github.com/sirupsen/logrus"
 )
 
 type cloudStorage struct {
@@ -19,7 +19,7 @@ func (c *cloudStorage) Upload(ctx context.Context, file entity.File) error {
 	writer := c.client.Bucket(c.bucketName).Object(file.Name).NewWriter(ctx)
 	_, err := io.Copy(writer, file.File)
 	if err != nil {
-		logrus.WithContext(ctx).WithError(err).Error(err)
+		log.WithContext(ctx).WithError(err).Error(err)
 	}
 	return nil
 }

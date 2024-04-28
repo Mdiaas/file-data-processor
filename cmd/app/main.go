@@ -17,23 +17,3 @@ func main() {
 		log.WithError(err).Error("failed to start application")
 	}
 }
-
-// func upload(c echo.Context) error {
-// 	file, err := c.FormFile("file")
-// 	if err != nil {
-// 		log.WithError(err).Error("failed to upload file")
-// 		return c.JSON(http.StatusBadRequest, "file is required")
-// 	}
-// 	src, err := file.Open()
-// 	if err != nil {
-// 		return err
-// 	}
-// 	defer func(src multipart.File) {
-// 		err := src.Close()
-// 		if err != nil {
-// 			log.WithError(err).Error("failed to close file")
-// 		}
-// 	}(src)
-
-// 	return c.String(http.StatusOK, "Hello, World!")
-// }
