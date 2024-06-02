@@ -11,8 +11,9 @@ type Upload interface {
 	Do(ctx context.Context, file entity.File) error
 }
 
-func New(cloudStorage dataprovider.CloudStorage) Upload {
+func New(cloudStorage dataprovider.CloudStorage, publisher dataprovider.UploadProducer) Upload {
 	return &useCase{
 		cloudStorage: cloudStorage,
+		publisher:    publisher,
 	}
 }

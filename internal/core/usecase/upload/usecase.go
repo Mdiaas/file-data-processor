@@ -17,6 +17,7 @@ const (
 
 type useCase struct {
 	cloudStorage dataprovider.CloudStorage
+	publisher    dataprovider.UploadProducer
 }
 
 func (u *useCase) Do(ctx context.Context, file entity.File) error {
@@ -30,6 +31,13 @@ func (u *useCase) Do(ctx context.Context, file entity.File) error {
 	if err := u.cloudStorage.Upload(ctx, file); err != nil {
 		l.WithError(err).Error("failed to upload files")
 		return fmt.Errorf(errorslabel.UploadFailed)
+	}
+	message := entity.UploadMessage{
+		FileName: file.Name,
+	}
+	if err := u.publisher.Publish(ctx, message); err != nil {
+		l.WithError(err).Error("failed to publish message")
+		return fmt.Errorf(errorslabel.PublishFailed)
 	}
 	return nil
 }
