@@ -20,16 +20,18 @@ type Handler struct {
 func New(cfg *config.Config) Handler {
 	ctx := context.Background()
 	opt := option.WithCredentialsFile(cfg.Google.Credentials)
+
 	storageClient, err := storage.NewClient(ctx, opt)
 	if err != nil {
 		log.WithContext(ctx).WithError(err).Fatal("failed to create pubsub client")
 	}
+
 	pubSubClient, err := pubsub.NewClient(ctx, "teak-span-419621", opt)
 	if err != nil {
 		log.WithContext(ctx).WithError(err).Fatal("failed to create storage client")
 	}
-	cloudstorage := cloudstorage.NewCloudStorage(storageClient, cfg.CloudStorage.BucketName)
 
+	cloudstorage := cloudstorage.NewCloudStorage(storageClient, cfg.CloudStorage.BucketName)
 	publisher := publisher.New(pubSubClient, cfg.Topics.FileUpload)
 	uploadUC := upload.New(cloudstorage, publisher)
 	uploadHandler := newUploadHandler(uploadUC)
