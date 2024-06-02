@@ -32,7 +32,7 @@ func main() {
 
 func listener(ctx context.Context) {
 	opt := option.WithCredentialsFile(cfg.Google.Credentials)
-	client, err := pubsub.NewClient(ctx, "teak-span-419621", opt)
+	client, err := pubsub.NewClient(ctx, cfg.Project.Id, opt)
 	if err != nil {
 		log.Fatalf("Failed to create client: %v", err)
 	}

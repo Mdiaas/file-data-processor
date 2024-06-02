@@ -26,7 +26,7 @@ func New(cfg *config.Config) Handler {
 		log.WithContext(ctx).WithError(err).Fatal("failed to create pubsub client")
 	}
 
-	pubSubClient, err := pubsub.NewClient(ctx, "teak-span-419621", opt)
+	pubSubClient, err := pubsub.NewClient(ctx, cfg.Project.Id, opt)
 	if err != nil {
 		log.WithContext(ctx).WithError(err).Fatal("failed to create storage client")
 	}

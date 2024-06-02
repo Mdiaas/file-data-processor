@@ -15,6 +15,7 @@ const (
 	envFileUploadSub   = "FILE_UPLOAD_SUBSCRIBER"
 	envNumberOfWorkers = "NUMBER_OF_WORKS"
 	envAPIServerHost   = "API_SERVER_HOST"
+	envProjectId       = "PROJECT_ID"
 )
 
 func Load() Config {
@@ -46,6 +47,9 @@ func Load() Config {
 		},
 		API: API{
 			ServerHost: os.Getenv(envAPIServerHost),
+		},
+		Project: Project{
+			Id: os.Getenv(envProjectId),
 		},
 	}
 }

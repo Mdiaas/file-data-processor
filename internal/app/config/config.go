@@ -7,8 +7,12 @@ type Config struct {
 	Subscribers  Subscribers
 	Workers      Workers
 	API          API
+	Project      Project
 }
 
+type Project struct {
+	Id string
+}
 type Google struct {
 	Credentials string
 }
