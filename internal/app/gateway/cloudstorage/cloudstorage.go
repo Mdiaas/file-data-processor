@@ -31,6 +31,10 @@ func (c *cloudStorage) Upload(ctx context.Context, file entity.File) error {
 	return nil
 }
 
+func (c *cloudStorage) OpenReader(ctx context.Context, fileName string) (io.Reader, error) {
+	return c.client.Bucket(c.bucketName).Object(fileName).NewReader(ctx)
+}
+
 func NewCloudStorage(client *storage.Client, bucketName string) dataprovider.CloudStorage {
 	return &cloudStorage{
 		client:     client,

@@ -5,4 +5,5 @@ const (
 	RequiredField     = "%s is required"
 	UploadFailed      = "failed to upload file into bucket, try again later"
 	PublishFailed     = "failed to publish message, try again later"
+	ReadFileFailed    = "failed to read file"
 )
