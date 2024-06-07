@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	validFileHeader = "STUDENT_ID;STUDENT_FULL_NAME;STUDENT_DOCUMENT_NUMBER;STUDENT_BIRTH_DATE;STUDENT_MOTHER_NAME;STUDENT_FATHER_NAME;\n"
+	validFileHeader = "STUDENT_FULL_NAME;STUDENT_DOCUMENT_NUMBER;STUDENT_BIRTH_DATE;STUDENT_MOTHER_NAME;STUDENT_FATHER_NAME;\n"
 )
 
 type useCase struct {
@@ -46,7 +46,6 @@ func (u *useCase) validateFields(file entity.File) error {
 	if utils.IsEmpty(file.Name) {
 		return fmt.Errorf(fmt.Sprintf(errorslabel.RequiredField, "file_name"))
 	}
-	fmt.Println(file.Header)
 	if file.Header != validFileHeader {
 		return fmt.Errorf(errorslabel.FileInvalidHeader)
 	}

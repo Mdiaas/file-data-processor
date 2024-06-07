@@ -10,6 +10,7 @@ import (
 	"github.com/mdiaas/processor/internal/app/controller/listener"
 	"github.com/mdiaas/processor/internal/app/gateway/cloudstorage"
 	"github.com/mdiaas/processor/internal/core/usecase/process"
+	"github.com/mdiaas/processor/internal/core/usecase/workerchannel"
 	log "github.com/sirupsen/logrus"
 	"google.golang.org/api/option"
 )
@@ -32,7 +33,8 @@ func main() {
 		log.WithContext(ctx).WithError(err).Fatal("failed to create pubsub client")
 	}
 	cloudstorage := cloudstorage.NewCloudStorage(storageClient, cfg.CloudStorage.BucketName)
-	processUc := process.New(cloudstorage)
+	workerUc := workerchannel.New(cfg.Workers.NumberOfWorks)
+	processUc := process.New(cloudstorage, workerUc)
 	listener := listener.New(client, &cfg, processUc)
 	go listener.Listen(ctx)
 	controller := controller.New(&cfg)
