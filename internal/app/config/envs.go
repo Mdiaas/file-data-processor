@@ -9,13 +9,14 @@ import (
 )
 
 const (
-	envGcsCredentials  = "GOOGLE_CREDENTIALS"
-	envBucketName      = "BUCKET_NAME"
-	envFileUploadTopic = "FILE_UPLOAD_TOPIC"
-	envFileUploadSub   = "FILE_UPLOAD_SUBSCRIBER"
-	envNumberOfWorkers = "NUMBER_OF_WORKS"
-	envAPIServerHost   = "API_SERVER_HOST"
-	envProjectId       = "PROJECT_ID"
+	envGcsCredentials    = "GOOGLE_CREDENTIALS"
+	envBucketName        = "BUCKET_NAME"
+	envFileUploadTopic   = "FILE_UPLOAD_TOPIC"
+	envFileUploadSub     = "FILE_UPLOAD_SUBSCRIBER"
+	envNumberOfWorkers   = "NUMBER_OF_WORKS"
+	envAPIServerHost     = "API_SERVER_HOST"
+	envProjectId         = "PROJECT_ID"
+	envStudentCollection = "STUDENT_COLLECTION"
 )
 
 func Load() Config {
@@ -50,6 +51,9 @@ func Load() Config {
 		},
 		Project: Project{
 			Id: os.Getenv(envProjectId),
+		},
+		Firestorage: Firestorage{
+			StudentCollection: os.Getenv(envStudentCollection),
 		},
 	}
 }

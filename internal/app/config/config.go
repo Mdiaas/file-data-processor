@@ -8,6 +8,7 @@ type Config struct {
 	Workers      Workers
 	API          API
 	Project      Project
+	Firestorage  Firestorage
 }
 
 type Project struct {
@@ -36,4 +37,8 @@ type Workers struct {
 
 type API struct {
 	ServerHost string
+}
+
+type Firestorage struct {
+	StudentCollection string
 }

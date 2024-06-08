@@ -21,6 +21,7 @@ import (
 type useCase struct {
 	storage       dataprovider.CloudStorage
 	workerChannel workerchannel.WorkerChannel
+	firestorage   dataprovider.Firestorage
 }
 
 func (u *useCase) Do(ctx context.Context, fileName string) error {
@@ -53,7 +54,10 @@ func (u *useCase) readLine(ctx context.Context, fileName string, line []string) 
 	f := func() {
 		l.Info("starting parse line to student")
 		student := u.parseLineToStudent(line)
-		fmt.Println(student)
+		err := u.firestorage.AddStudent(ctx, student)
+		if err != nil {
+			l.WithField("student", student).WithError(err).Error("failed to add student")
+		}
 	}
 	return f
 }

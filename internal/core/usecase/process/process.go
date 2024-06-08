@@ -11,9 +11,10 @@ type Process interface {
 	Do(ctx context.Context, fileName string) error
 }
 
-func New(storage dataprovider.CloudStorage, worker workerchannel.WorkerChannel) Process {
+func New(storage dataprovider.CloudStorage, worker workerchannel.WorkerChannel, firestorage dataprovider.Firestorage) Process {
 	return &useCase{
 		storage:       storage,
 		workerChannel: worker,
+		firestorage:   firestorage,
 	}
 }
